@@ -24,10 +24,13 @@ elif purchase > 1000000:
 else:
     print("Please enter a valid purchase amount.")
 
+min_total = round(min_total, 3)
+
 down_payment_input = float(input(f"Enter down payment percentage (minimum {min_total}): "))
 
 down_payment_percent = down_payment_input/100
 down_payment_total = down_payment_percent * purchase
+down_payment_total = round(down_payment_total)
 print(down_payment_total)
 
 #insurance calculation
@@ -62,48 +65,64 @@ intrest = 0
 
 #mortgage term calculations
 while True:
-    mortgage_term = int(input("Enter mortgage term (1, 2, 3, 5, 10): "))
-
+    mortgage_term = int(input("Enter mortgage term (1, 2, 3, 5, or 10): "))
     if mortgage_term == 1:
-        intrest_rate = (intrest + 0.0595)
-
+        intrest_rate = float(intrest + 0.0595)
+        annual_intrest_rate = float(intrest_rate * 100)
+        print(f"Intrest rate for the term will be {annual_intrest_rate}%")
         break
     elif mortgage_term == 2:
-        intrest_rate = (intrest + 0.059)
-
+        intrest_rate = int(intrest + 0.059)
+        annual_intrest_rate = int(intrest_rate * 100)
+        print(f"Intrest rate for the term will be {annual_intrest_rate}%")
         break
     elif mortgage_term == 3:
-        intrest_rate = (intrest + 0.056)
-
+        intrest_rate = float(intrest + 0.056)
+        annual_intrest_rate = float(intrest_rate * 100)
+        print(f"Intrest rate for the term will be {annual_intrest_rate}%")
         break
     elif mortgage_term == 5:
-        intrest_rate = (intrest + 0.0529)
-
+        intrest_rate = float(intrest + 0.0529)
+        annual_intrest_rate = float(intrest_rate * 100)
+        print(f"Intrest rate for the term will be {annual_intrest_rate}%")
         break
     elif mortgage_term == 10:
-        intrest_rate = (intrest + 0.06)
+        intrest_rate = float(intrest + 0.06)
+        annual_intrest_rate = float(intrest_rate * 100)
+        print(f"Intrest rate for the term will be {annual_intrest_rate}%")
+        break
+    else:
+        print("Please enter a valid choice")
+
+effective_monthly_rate = (((1 + (annual_intrest_rate) / 2 ) ** 2)** (1/12) - 1)
+
+while True:
+    mortgage_amortization = int(input("Enter mortgage amortization period (5, 10, 15, 20, 25): "))
+
+    if mortgage_amortization == 5:
+        mortgage_amortization_term = 5
+
+        break
+    elif mortgage_amortization == 10:
+        mortgage_amortization_term = 10
+
+        break
+    elif mortgage_amortization == 15:
+        mortgage_amortization_term = 15
+
+        break
+    elif mortgage_amortization == 20:
+        mortgage_amortization_term = 20
+
+        break
+    elif mortgage_amortization == 25:
+        mortgage_amortization_term = 25
 
         break
     else:
         print("Please enter a valid choice")
 
-annual_intrest_rate = (intrest_rate * 100)
-
-    #while intrest_rate == 0:
-        #print("Please enter a valid choice")
-        #if intrest_rate < 1:
-            #break
-# LINES above failed attempt at making loop
-
-effective_monthly_rate = (((1+(annual_intrest_rate)/2)**2)**(1/12) - 1)
-
-effective_monthly_rate = int()
-
 #num_payments = number of payments
-num_payments = mortgage_term*12
-
-principal_amount = purchase - down_payment_total
-
-monthly_payment = principal_amount * (effective_monthly_rate * (1 + effective_monthly_rate)**num_payments) / ((1 + effective_monthly_rate)**num_payments - 1)
-
-mortgage_amortization = input("Enter mortgage amortization period (5, 10, 15, 20, 25): ")
+num_payments = int(mortgage_amortization * 12)
+monthly_payment = principal_amount * (effective_monthly_rate * (1 + effective_monthly_rate)**(num_payments)) / ((1 + (effective_monthly_rate)) ** (num_payments) - 1)
+print(f"Your monthly payments will be {round(monthly_payment)} per month")
