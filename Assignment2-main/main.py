@@ -63,33 +63,31 @@ intrest = 0
 #mortgage term calculations
 while True:
     mortgage_term = int(input("Enter mortgage term (1, 2, 3, 5, 10): "))
+
     if mortgage_term == 1:
-        intrest_rate = float(intrest + 0.0595)
-        annual_intrest_rate = float(intrest_rate * 100)
-        print(f"Intrest rate for the term will be {annual_intrest_rate}%")
+        intrest_rate = (intrest + 0.0595)
+
         break
     elif mortgage_term == 2:
-        intrest_rate = int(intrest + 0.059)
-        annual_intrest_rate = int(intrest_rate * 100)
-        print(f"Intrest rate for the term will be {annual_intrest_rate}%")
+        intrest_rate = (intrest + 0.059)
+
         break
     elif mortgage_term == 3:
-        intrest_rate = float(intrest + 0.056)
-        annual_intrest_rate = float(intrest_rate * 100)
-        print(f"Intrest rate for the term will be {annual_intrest_rate}%")
+        intrest_rate = (intrest + 0.056)
+
         break
     elif mortgage_term == 5:
-        intrest_rate = float(intrest + 0.0529)
-        annual_intrest_rate = float(intrest_rate * 100)
-        print(f"Intrest rate for the term will be {annual_intrest_rate}%")
+        intrest_rate = (intrest + 0.0529)
+
         break
     elif mortgage_term == 10:
-        intrest_rate = float(intrest + 0.06)
-        annual_intrest_rate = float(intrest_rate * 100)
-        print(f"Intrest rate for the term will be {annual_intrest_rate}%")
+        intrest_rate = (intrest + 0.06)
+
         break
     else:
         print("Please enter a valid choice")
+
+annual_intrest_rate = (intrest_rate * 100)
 
     #while intrest_rate == 0:
         #print("Please enter a valid choice")
@@ -97,12 +95,15 @@ while True:
             #break
 # LINES above failed attempt at making loop
 
-effective_monthly_rate = int((((1+{annual_intrest_rate}/2)**2)**(1/12) - 1))
+effective_monthly_rate = (((1+(annual_intrest_rate)/2)**2)**(1/12) - 1)
+
+effective_monthly_rate = int()
 
 #num_payments = number of payments
 num_payments = mortgage_term*12
 
-monthly_payment = int(({purchase}(({effective_monthly_rate})(1+ {effective_monthly_rate})**(num_payments) / (1+ {effective_monthly_rate})**(num_payments) -1)))
+principal_amount = purchase - down_payment_total
 
+monthly_payment = principal_amount * (effective_monthly_rate * (1 + effective_monthly_rate)**num_payments) / ((1 + effective_monthly_rate)**num_payments - 1)
 
 mortgage_amortization = input("Enter mortgage amortization period (5, 10, 15, 20, 25): ")
